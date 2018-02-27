@@ -6,9 +6,15 @@ const KEYCODES = {
   ESCAPE: 27
 };
 
+function required() {
+  throw new Error('Required parameter not supplied');
+}
+
 class PortalWithState extends React.Component {
   constructor(props) {
     super(props);
+    this.clickListener = false;
+    this.keydownListener = false;
     this.portalNode = null;
     this.state = { active: !!props.defaultOpen };
     this.openPortal = this.openPortal.bind(this);
@@ -19,20 +25,43 @@ class PortalWithState extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.closeOnEsc) {
-      document.addEventListener('keydown', this.handleKeydown);
-    }
-    if (this.props.closeOnOutsideClick) {
-      document.addEventListener('click', this.handleOutsideMouseClick);
+    this.addEventListeners(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const shouldFlushListeners =
+      nextProps.closeOnEsc !== this.props.closeOnEsc ||
+      nextProps.closeOnOutsideClick !== this.props.closeOnOutsideClick;
+
+    if (shouldFlushListeners) {
+      this.removeEventListeners();
+      this.addEventListeners(nextProps);
     }
   }
 
   componentWillUnmount() {
-    if (this.props.closeOnEsc) {
-      document.removeEventListener('keydown', this.handleKeydown);
+    this.removeEventListeners();
+  }
+
+  addEventListeners(props = required()) {
+    if (props.closeOnEsc) {
+      document.addEventListener('keydown', this.handleKeydown);
+      this.keydownListener = true;
     }
-    if (this.props.closeOnOutsideClick) {
+    if (props.closeOnOutsideClick) {
+      document.addEventListener('click', this.handleOutsideMouseClick);
+      this.clickListener = true;
+    }
+  }
+
+  removeEventListeners() {
+    if (this.keydownListener) {
+      document.removeEventListener('keydown', this.handleKeydown);
+      this.keydownListener = false;
+    }
+    if (this.clickListener) {
       document.removeEventListener('click', this.handleOutsideMouseClick);
+      this.clickListener = false;
     }
   }
 
