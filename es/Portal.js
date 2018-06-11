@@ -8,7 +8,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { canUseDOM } from './utils';
 
 var Portal = function (_React$Component) {
@@ -38,7 +38,7 @@ var Portal = function (_React$Component) {
         this.defaultNode = document.createElement('div');
         document.body.appendChild(this.defaultNode);
       }
-      return createPortal(this.props.children, this.props.node || this.defaultNode);
+      return ReactDOM.createPortal(this.props.children, this.props.node || this.defaultNode);
     }
   }]);
 

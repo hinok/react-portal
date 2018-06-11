@@ -35,6 +35,7 @@ var Portal = function (_React$Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
+      ReactDOM.unmountComponentAtNode(this.defaultNode || this.props.node);
       if (this.defaultNode) {
         document.body.removeChild(this.defaultNode);
       }

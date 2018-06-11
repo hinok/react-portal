@@ -90,9 +90,6 @@ var PortalWithState = function (_React$Component) {
       if (this.state.active) {
         return;
       }
-      if (e && e.nativeEvent) {
-        e.nativeEvent.stopImmediatePropagation();
-      }
       this.setState({ active: true }, this.props.onOpen);
     }
   }, {
