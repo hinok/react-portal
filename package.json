@@ -1,5 +1,5 @@
 {
-  "name": "react-portal",
+  "name": "@hinok/react-portal",
   "version": "4.1.5",
   "description": "To make your life with React Portals easier.",
   "main": "lib/index.js",
@@ -14,9 +14,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tajo/react-portal"
+    "url": "https://github.com/hinok/react-portal"
   },
   "author": "Vojtech Miksu <vojtech@miksu.cz>",
+  "contributors": [
+    "Dawid Karabin <mail@hinok.net>"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "npm run clean && npm run build-es && npm run build-cjs",
